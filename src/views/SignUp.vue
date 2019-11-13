@@ -3,10 +3,25 @@
         <b-container class="py-5">
             <div class="text-center mb-4">
                 <h1 class="h3 mb-3 font-weight-normal">
-                Sign In
+                Sign Up
                 </h1>
             </div>
             <b-form @submit="onSubmit" @reset="onReset">
+                <b-form-group
+                    id="name"
+                    label="Username :"
+                    label-for="name"
+                    description="We are glad if you are going to join us"
+                >
+                    <b-form-input
+                        id="name-input"
+                        v-model="form.name"
+                        type="text"
+                        required
+                        placeholder="Enter username"
+                        ></b-form-input>
+                </b-form-group>
+
                 <b-form-group
                     id="email"
                     label="Email address:"
@@ -37,6 +52,21 @@
                     ></b-form-input>
                 </b-form-group>
 
+                <b-form-group
+                    id="passwordCheck"
+                    label="Confirm your password :"
+                    label-for="passwordCheck"
+                    description="Please confirm Your Password"
+                >
+                    <b-form-input
+                        id="passwordCheck-input"
+                        v-model="form.passwordCheck"
+                        type="password"
+                        required
+                        placeholder="Confirm your Password"
+                    ></b-form-input>
+                </b-form-group>
+
                 <b-button type="submit" variant="primary">Submit</b-button>
                 <b-button type="reset" variant="danger" style="margin-left: 0.25rem">Reset</b-button>
             </b-form>
@@ -46,12 +76,14 @@
 
 <script>
 export default {
-    name: 'SignIn',
+    name: 'SignUp',
     data() {
         return {
             form: {
+                name: '',
                 email: '',
-                password: ''
+                password: '',
+                passwordCheck: ''
             }
         }
     },
