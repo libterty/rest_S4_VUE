@@ -95,8 +95,10 @@ export default {
             console.log('submit data', data);
         },
         onReset() {
+            this.form.name = '',
             this.form.email = '',
-            this.form.password = ''
+            this.form.password = '',
+            this.form.passwordCheck = ''
         }
     }
 }
