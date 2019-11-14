@@ -13,6 +13,19 @@ class Request {
             }
         })
     }
+
+    getComments() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await fetch('http://forum-express-api.herokuapp.com/api/restaurants/feeds');
+                resolve(
+                    res.comments.map(r => ({...r}))
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
 }
 
 export default Request;

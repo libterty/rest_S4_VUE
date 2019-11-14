@@ -1,16 +1,14 @@
 <template>
-    <b-card title="最新餐廳">
+    <b-card title="最新評論">
         <b-list-group flush>
             <b-list-group-item
-                v-for="restaurant in restaurants"
-                :key="restaurant.id"
+                v-for="comment in comments"
+                :key="comment.id"
             >
                 <h4>
-                    <a href="#">{{restaurant.name}}</a>
-                    <small>{{restaurant.Category.name}}</small>
+                    <a href="#">{{comment.User.name}}</a>
                 </h4>
-                <p>{{restaurant.description}}</p>{{restaurant.createdAt | fromNow}}
-                <hr>
+                <p>{{comment.text}}</p>{{comment.createdAt | fromNow}}
             </b-list-group-item>
         </b-list-group>
     </b-card>
@@ -20,7 +18,7 @@
 import moment from 'moment'
 
 export default {
-    name: 'NewestRestaurants',
+    name: 'NewestComments',
     filters: {
         fromNow(t) {
             if(!t) return '-';
@@ -28,7 +26,7 @@ export default {
         }
     },
     props: {
-        restaurants: {
+        comments: {
             type: Array,
             required: true
         }
