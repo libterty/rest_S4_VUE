@@ -2,7 +2,7 @@ import axios from 'axios';
 import config from '../../config/index';
 const auth = process.env.TOKEN || config.TOKEN;
 
-export const fetch = url => {
+export const getRequest = url => {
     return axios(url, 
         { headers: 
             { Authorization: auth }
