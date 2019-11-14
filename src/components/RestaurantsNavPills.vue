@@ -3,14 +3,14 @@
         <b-card title="nav-pill" no-body>
             <b-card-header header-tag="nav">
                 <b-nav card-header tabs>
-                    <b-nav-item href="/restaurants" active>
+                    <b-nav-item href="/restaurants" :active="path === ''">
                         全部
                     </b-nav-item>
                     <b-nav-item
                         v-for="category in categories"
                         :key="category.id"
                         :href="'?categoryId='+category.id"
-                        @click="requestNewData"
+                        :active="isActive(category.id)"
                     >
                         {{category.name}}
                     </b-nav-item>
@@ -35,8 +35,13 @@ export default {
         }
     },
     methods: {
-        requestNewData() {
-            console.log('document', document.location.pathname+document.location.search);
+        isActive(id) {
+            if (!document.location.search) return false;
+            if (document.location.search.indexOf(id) > 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
