@@ -9,7 +9,8 @@
                     <b-nav-item
                         v-for="category in categories"
                         :key="category.id"
-                        :href="'/restaurants/categories/'+category.id"
+                        :href="'?categoryId='+category.id"
+                        @click="requestNewData"
                     >
                         {{category.name}}
                     </b-nav-item>
@@ -26,6 +27,16 @@ export default {
         categories: {
             type: Array,
             required: true
+        }
+    },
+    data() {
+        return {
+            path: document.location.search
+        }
+    },
+    methods: {
+        requestNewData() {
+            console.log('document', document.location.pathname+document.location.search);
         }
     }
 }

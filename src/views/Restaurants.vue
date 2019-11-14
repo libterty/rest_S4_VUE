@@ -44,6 +44,15 @@ export default {
         } catch (error) {
             this.error = error.message;
         }
+    },
+    async updated() {
+        try {
+            this.res = await request.getRestaurants(document.location.search);
+            this.restaurants = this.res.restaurants.map(rest => rest);
+            this.categories = this.res.categories.map(cate => cate);
+        } catch (error) {
+            this.error = error.message;
+        }
     }
 }
 </script>
