@@ -32,21 +32,8 @@ class Request {
             try {
                 const res = await getRequest('http://forum-express-api.herokuapp.com/api/restaurants');
                 resolve(
-                    res.restaurants.map(r => ({...r}))
-                )
-            } catch (error) {
-                reject(error);
-            }
-        })
-    }
-
-    getCategories() {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const res = await getRequest('http://forum-express-api.herokuapp.com/api/restaurants');
-                resolve(
-                    res.categories.map(r => ({...r}))
-                )
+                    res
+                );
             } catch (error) {
                 reject(error);
             }

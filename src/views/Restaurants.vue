@@ -9,6 +9,7 @@
                 :initialRestaurant="restaurant"
             />
         </div>
+        <RestaurantsPagination />
     </b-container>
 </template>
 
@@ -16,26 +17,30 @@
 import Request from '../api'
 import NavTabs from '../components/NavTabs.vue';
 import Restaurants from '../components/Restaurants.vue';
-import RestaurantsNavPills from '../components/RestaurantsNavPills.vue'; 
+import RestaurantsNavPills from '../components/RestaurantsNavPills.vue';
+import RestaurantsPagination from '../components/RestaurantsPagination.vue';
 const request = new Request();
 
 export default {
     components: {
         NavTabs,
         Restaurants,
-        RestaurantsNavPills
+        RestaurantsNavPills,
+        RestaurantsPagination
     },
     data() {
         return {
             restaurants: [],
             categories: [],
+            res: {},
             error: ''
         }
     },
     async created() {
         try {
-            this.restaurants = await request.getRestaurants();
-            this.categories = await request.getCategories();
+            this.res = await request.getRestaurants();
+            this.restaurants = this.res.restaurants.map(rest => rest);
+            this.categories = this.res.categories.map(cate => cate);
         } catch (error) {
             this.error = error.message;
         }
