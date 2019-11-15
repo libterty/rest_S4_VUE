@@ -15,7 +15,7 @@ export default {
         return {
             length: 1,
             obj: {},
-            BASE_URL: config.BASE_URL
+            BASE_URL: config.REST_BASE_URL
         }
     },
     async created() {
