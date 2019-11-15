@@ -24,14 +24,14 @@
 
 <script>
 import moment from 'moment'
+const user = JSON.parse(localStorage.getItem('credit')).user;
+console.log('user', user);
 
 export default {
-    // Set isAdmin default as false , waiting API laster on
     props: {
         initComments: {
             type: Array,
-            required: true,
-            isAdmin: false
+            required: true
         }
     },
     filters: {
@@ -42,7 +42,8 @@ export default {
     },
     data() {
         return {
-            comments: this.initComments
+            comments: this.initComments,
+            isAdmin: user.isAdmin || false
         }
     }
 }

@@ -75,6 +75,10 @@
 </template>
 
 <script>
+import router from '../router';
+import Request from '../api';
+const request = new Request();
+
 export default {
     name: 'SignUp',
     data() {
@@ -88,11 +92,18 @@ export default {
         }
     },
     methods: {
-        onSubmit(evt) {
+        async onSubmit(evt) {
             evt.preventDefault();
-            confirm('Confirm to SignIn ?');
-            const data = JSON.stringify(this.form);
-            console.log('data', data);
+            confirm('Confirm to SignUp ?');
+            if (!this.form.name || !this.form.email || !this.form.password || !this.form.passwordCheck) {
+                alert('Empty Input')
+            } else if (this.form.password !== this.form.passwordCheck) {
+                alert('Please check if both of your password is correct');
+            } else {
+                const data = JSON.stringify(this.form);
+                const res = await request.postSignUp(data);
+                res.status === 'success' ? router.push('/signin') : null;
+            }
         },
         onReset() {
             this.form.name = '',

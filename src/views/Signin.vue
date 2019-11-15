@@ -45,6 +45,10 @@
 </template>
 
 <script>
+import router from '../router';
+import Request from '../api';
+const request = new Request();
+
 export default {
     name: 'SignIn',
     data() {
@@ -56,11 +60,12 @@ export default {
         }
     },
     methods: {
-        onSubmit(evt) {
+        async onSubmit(evt) {
             evt.preventDefault();
             confirm('Confirm to SignIn ?');
             const data = JSON.stringify(this.form);
-            console.log('data', data);
+            const res = await request.postSignIn(data);
+            res.status === 'success' ? router.push('/restaurants') : null;
         },
         onReset() {
             this.form.email = '',

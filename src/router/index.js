@@ -4,6 +4,8 @@ import NotFound from '../views/NotFound.vue';
 import SignIn from '../views/SignIn.vue';
 import SignUp from '../views/SignUp.vue';
 import Restaurants from '../views/Restaurants.vue';
+const credit = JSON.parse(localStorage.getItem('credit'));
+console.log('credit', credit);
 
 Vue.use(VueRouter);
 
@@ -59,5 +61,17 @@ const router = new VueRouter({
   mode: 'history',
   routes
 });
+
+router.beforeEach((to, from , next) => {
+  if(!credit) {
+    if (to.name !== 'SignIn' && to.name !== 'SignUp') {
+      credit ? next() : next('/signin')
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+})
 
 export default router;

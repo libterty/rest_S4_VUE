@@ -1,4 +1,4 @@
-import { getRequest } from './fetch';
+import { getRequest, postRequest } from './fetch';
 import config from '../../config';
 
 class Request {
@@ -71,6 +71,33 @@ class Request {
                 );
             } catch (error) {
                 reject(error)
+            }
+        })
+    }
+
+    postSignIn(data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await postRequest(config.ROOT_URL+'/signin', data);
+                res.data.status === 'success' ? localStorage.setItem('credit', JSON.stringify(res.data)) : null;
+                resolve(
+                    res.data
+                );
+            } catch (error) {
+                reject
+            }
+        })
+    }
+
+    postSignUp(data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await postRequest(config.ROOT_URL+'/signup', data);
+                resolve (
+                    res.data
+                );
+            } catch (error) {
+                reject
             }
         })
     }
