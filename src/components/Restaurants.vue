@@ -8,7 +8,12 @@
                 img-top
                 class="mb-4"
             >
-                <span class="badge badge-secondary">{{restaurant.Category.name}}</span>
+                <router-link :to="'/restaurants/'+restaurant.id">Visit {{restaurant.name}}</router-link>
+                <b-badge class="text-center" variant="light">
+                    <span class="sr-only">
+                        {{restaurant.Category.name}}
+                    </span>
+                </b-badge>
                 <b-card-text>{{restaurant.description | shortenDesc}}</b-card-text>
 
                 <b-card-footer class="mt-3">

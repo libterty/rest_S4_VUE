@@ -35,7 +35,6 @@ export default {
     async created() {
         try {
             this.users = await request.getTopUsers();
-            console.log('this.users', this.users);
         } catch (error) {
             this.error = error.message;
         }

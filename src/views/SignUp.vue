@@ -92,7 +92,7 @@ export default {
             evt.preventDefault();
             confirm('Confirm to SignIn ?');
             const data = JSON.stringify(this.form);
-            console.log('submit data', data);
+            console.log('data', data);
         },
         onReset() {
             this.form.name = '',

@@ -49,6 +49,19 @@ class Request {
         })
     }
 
+    getRestaurant(url) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await getRequest(config.ROOT_URL+url);
+                resolve (
+                    res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     getTopUsers() {
         return new Promise(async (resolve, reject) => {
             try {
