@@ -38,8 +38,8 @@
             </b-card>
         </b-card-group>
         <hr>
-        <div v-if="initComments">
-            <RestaurantComments :initComments="initComments"/>
+        <div>
+            <RestaurantComments :initComments="initComments" @after-del-comment="afterDelComment"/>
         </div>
         <hr>
         <CreateComment/>
@@ -73,6 +73,7 @@ export default {
         }
     },
     data() {
+        console.log("parents comments", this.initComments);
         return {
             obj: {},
             error: '',
@@ -89,9 +90,14 @@ export default {
             this.isFavorited = this.obj.isFavorited;
             this.isLiked = this.obj.isLiked;
             this.initComments = this.obj.restaurant.Comments;
-            console.log("this.initCommens", this.obj);
         } catch (error) {
             this.error = error.message;
+        }
+    },
+    methods: {
+        async afterDelComment(commentId) {
+            await request.deleteComment(commentId);
+            this.initComments = this.initComments.filter(c => c.id !== commentId);
         }
     }
 }

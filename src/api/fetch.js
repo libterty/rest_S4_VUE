@@ -14,7 +14,6 @@ export const getRequest = url => {
 }
 
 export const postRequest = (url, data) => {
-    console.log('data', data);
     return axios({
         method: 'POST',
         url: url,
@@ -23,4 +22,15 @@ export const postRequest = (url, data) => {
     })
         .then(res => { return res})
         .catch(err => console.log('fetch POST err', err.message));
+}
+
+export const deleteRequest = url => {
+    return axios.delete(url, 
+        {  headers:
+            { Authorization: 'Bearer '+auth.token}
+        }
+    ).then(res => {
+        return res
+    })
+    .catch(err => console.log('fetch DELETE err', err.message));
 }

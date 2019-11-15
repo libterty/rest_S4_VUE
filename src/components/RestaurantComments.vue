@@ -9,7 +9,14 @@
             >
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{comment.User.name}}</h5>
-                    <b-button type="submit" variant="danger" v-if="isAdmin">DELETE</b-button>
+                    <b-button 
+                        type="submit"
+                        variant="danger"
+                        v-if="isAdmin"
+                        @click.stop.prevent="handleDeleteButtonClick(comment.id)"
+                    >
+                        DELETE
+                    </b-button>
                 </div>
                 <div class="d-flex w-100 align-items-start">
                     <p class="mb-1" align-self="start">{{comment.text}}</p>
@@ -25,7 +32,6 @@
 <script>
 import moment from 'moment'
 const user = JSON.parse(localStorage.getItem('credit')).user;
-console.log('user', user);
 
 export default {
     props: {
@@ -41,9 +47,16 @@ export default {
         }
     },
     data() {
+        console.log('childs comments', this.initComments);
         return {
             comments: this.initComments,
             isAdmin: user.isAdmin || false
+        }
+    },
+    methods: {
+        handleDeleteButtonClick(commentId) {
+            confirm('Do you want to delete the comment?');
+            this.$emit('after-del-comment', commentId)
         }
     }
 }
