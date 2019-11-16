@@ -1,5 +1,5 @@
 <template>
-    <b-container class="my-5">
+    <b-container class="py-5">
         <RestaurantsDashboard />
     </b-container>
 </template>

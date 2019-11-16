@@ -75,6 +75,19 @@ class Request {
         })
     }
 
+    getTopRestaurants() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await getRequest(config.REST_BASE_URL + '/top');
+                resolve (
+                    res.restaurants.map(r => ({...r}))
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     getRestaurantDashboard(url) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -128,11 +141,37 @@ class Request {
         })
     }
 
+    postFavorite(rId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await postAuthRequest(config.ROOT_URL+'/favorite/'+rId);
+                resolve (
+                    res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     deleteComment(cId) {
         return new Promise(async (resolve, reject) => {
             try {
                 const res = await deleteRequest(config.ROOT_URL+'/comments/'+cId)
                 resolve (
+                    res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    deleteFavorite(rId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await deleteRequest(config.ROOT_URL+'/favorite/'+rId)
+                resolve(
                     res
                 );
             } catch (error) {

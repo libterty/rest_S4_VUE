@@ -42,7 +42,6 @@ export default {
     async created() {
         try {
             this.restaurant = await request.getRestaurantDashboard(document.location.pathname);
-            console.log('initRestaurant', this.restaurant);
         } catch (error) {
             this.error = 'Something went wrong during create' + error.message;
         }

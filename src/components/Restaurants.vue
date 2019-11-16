@@ -18,10 +18,22 @@
 
                 <b-card-footer class="mt-3">
                     <b-button-group>
-                        <b-button type="button" size="sm" variant="success" v-if="restaurant.isFavorited">
+                        <b-button 
+                            type="button"
+                            @click="addFavorited(restaurant.id)" 
+                            size="sm" 
+                            variant="success" 
+                            v-if="restaurant.isFavorited"
+                        >
                             加到最愛
                         </b-button>
-                        <b-button type="button" size="sm" variant="danger" v-if="!restaurant.isFavorited">
+                        <b-button 
+                            type="button" 
+                            @click="removeFavorited(restaurant.id)" 
+                            size="sm" 
+                            variant="danger" 
+                            v-if="!restaurant.isFavorited"
+                        >
                             移除最愛
                         </b-button>
                         <b-button type="button" size="sm" variant="success" v-if="restaurant.isLiked">
@@ -38,6 +50,9 @@
 </template>
 
 <script>
+import Request from '../api';
+const request = new Request();
+
 export default {
     name: 'Restaurants',
     filters: {
@@ -55,12 +70,23 @@ export default {
         return {
             restaurant: this.initialRestaurant
         }
+    },
+    methods: {
+        async addFavorited(rId) {
+            const res = await request.postFavorite(rId);
+            console.log('main page add Favorite res', res);
+        },
+
+        async removeFavorited(rId) {
+            const res = await request.deleteFavorite(rId);
+            console.log('main page remove Favorite res', res);
+        }
     }
 }
 </script>
 
 <style scoped>
-button.btn.btn-danger.btn-sm {
+button {
     margin-left: 0.25rem;
 }
 </style>
