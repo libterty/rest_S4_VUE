@@ -75,6 +75,19 @@ class Request {
         })
     }
 
+    getRestaurantDashboard(url) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await getRequest(config.ROOT_URL + url);
+                resolve(
+                    res.restaurant
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     postSignIn(data) {
         return new Promise(async (resolve, reject) => {
             try {

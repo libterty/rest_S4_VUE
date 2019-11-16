@@ -20,7 +20,7 @@
                 <b-card-text>{{restaurant.description | shortenDesc}} ... </b-card-text>
                 <template v-slot:footer>
                     <b-button-group>
-                        <b-button href="#" variant="primary">DASHBOARD</b-button>
+                        <b-button :href="'/restaurants/'+restaurant.id+'/dashboard'" variant="primary">DASHBOARD</b-button>
                         <b-button type="button" size="sm" variant="success" v-if="isFavorited === false">
                             加到最愛
                         </b-button>
