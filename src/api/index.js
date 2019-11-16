@@ -144,8 +144,20 @@ class Request {
     postFavorite(rId) {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log('postFavorite Rq', rId);
                 const res = await postAuthRequest(config.ROOT_URL+'/favorite/'+rId);
+                resolve (
+                    res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    postLike(rId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await postAuthRequest(config.ROOT_URL+'/like/'+rId);
                 resolve (
                     res
                 );
@@ -173,6 +185,19 @@ class Request {
             try {
                 console.log('deleteFavorite Rq', rId);
                 const res = await deleteRequest(config.ROOT_URL+'/favorite/'+rId)
+                resolve(
+                    res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    deleteLike(rId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await deleteRequest(config.ROOT_URL+'/like/'+rId)
                 resolve(
                     res
                 );

@@ -23,7 +23,7 @@
                         <b-button :href="'/restaurants/'+restaurant.id+'/dashboard'" variant="primary">DASHBOARD</b-button>
                         <b-button 
                             type="button"
-                            @click.once="addFavorited(restaurant.id)"
+                            @click.stop.prevent="addFavorited(restaurant.id)"
                             size="sm" 
                             variant="success" 
                             v-if="isFavorited === false"
@@ -32,18 +32,30 @@
                         </b-button>
                         <b-button 
                             type="button"
-                            @click.once="removeFavorited(restaurant.id)"
+                            @click.stop.prevent="removeFavorited(restaurant.id)"
                             size="sm" 
                             variant="danger" 
                             v-if="isFavorited === true"
                         >
                             移除最愛
                         </b-button>
-                        <b-button type="button" size="sm" variant="success" v-if="isLiked === false">
-                            <i class="far fa-heart"></i>
+                        <b-button 
+                            type="button"
+                            @click.stop.prevent="addLiked(restaurant.id)"
+                            size="sm" 
+                            variant="success" 
+                            v-if="isLiked === false"
+                        >
+                            按讚
                         </b-button>
-                        <b-button type="button" size="sm" variant="danger" v-if="isLiked === true">
-                            <i class="fas fa-heart"></i>
+                        <b-button 
+                            type="button"
+                            @click.stop.prevent="removeLiked(restaurant.id)"
+                            size="sm" 
+                            variant="danger" 
+                            v-if="isLiked === true"
+                        >
+                            移除讚
                         </b-button>
                     </b-button-group>
                 </template>
@@ -71,11 +83,6 @@ export default {
         RestaurantComments,
         CreateComment
     },
-    // props: {
-    //     initRestaurant: {
-    //         type: Object
-    //     }
-    // },
     filters: {
         shortenDesc(d) {
             if (!d) return 'No description yet';
@@ -120,6 +127,12 @@ export default {
 
         removeFavorited(rId) {
             this.$emit('after-delete-Favorite', rId);
+        },
+        addLiked(rId) {
+            this.$emit('after-add-Like', rId);
+        },
+        removeLiked(rId) {
+            this.$emit('after-delete-Like', rId);
         }
     },
     async updated() {
@@ -133,6 +146,7 @@ export default {
     watch: {
         obj: function(updateData) {
             this.isFavorited = updateData.isFavorited;
+            this.isLiked = updateData.isLiked;
         }
     }
 }

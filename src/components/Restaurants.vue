@@ -36,11 +36,23 @@
                         >
                             移除最愛
                         </b-button>
-                        <b-button type="button" size="sm" variant="success" v-if="!restaurant.isLiked">
-                            <i class="far fa-heart"></i>
+                        <b-button 
+                            type="button"
+                            @click.stop.prevent="addLiked(restaurant.id)"
+                            size="sm"
+                            variant="success"
+                            v-if="!restaurant.isLiked"
+                        >
+                            按讚
                         </b-button>
-                        <b-button type="button" size="sm" variant="danger" v-if="restaurant.isLiked">
-                            <i class="fas fa-heart"></i>
+                        <b-button 
+                            type="button"
+                            @click.stop.prevent="removeLiked(restaurant.id)"
+                            size="sm"
+                            variant="danger"
+                            v-if="restaurant.isLiked"
+                        >
+                            移除讚
                         </b-button>
                     </b-button-group>
                 </b-card-footer>
@@ -75,6 +87,12 @@ export default {
 
         removeFavorited(rId) {
             this.$emit('after-delete-Favorite', rId);
+        },
+        addLiked(rId) {
+            this.$emit('after-add-Like', rId);
+        },
+        removeLiked(rId) {
+            this.$emit('after-delete-Like', rId);
         }
     },
     watch: {
