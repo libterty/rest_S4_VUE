@@ -57,9 +57,7 @@ export default {
                 alert('Insufficient content, please leave your comment with more then 15 words');
             } else {
                 const data = JSON.stringify(this.form);
-                console.log('send data', data);
                 const res = await request.postComment(data);
-                console.log(res);
                 res.status === 'error' ? alert(res.message) : alert(`Create ${res.status}`);
             }
         }

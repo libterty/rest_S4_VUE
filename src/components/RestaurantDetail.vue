@@ -94,16 +94,23 @@ export default {
             this.initComments = this.obj.restaurant.Comments;
             this.restaurantId = this.obj.restaurant.id;
         } catch (error) {
-            this.error = error.message;
+            this.error = 'Somthing went wrong during create:' + error.message;
         }
     },
     methods: {
         async afterDelComment(commentId) {
             await request.deleteComment(commentId);
             this.initComments = this.initComments.filter(c => c.id !== commentId);
-            console.log('this.initComments', this.initComments);
         }
-    }
+    },
+    async updated() {
+        try {
+            this.obj = await request.getRestaurant(document.location.pathname);
+            this.initComments = this.obj.restaurant.Comments;
+        } catch (error) {
+            this.error = 'Somthing went wrong during update:' + error.message
+        }
+    },
 }
 </script>
 

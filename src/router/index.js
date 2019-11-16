@@ -5,7 +5,6 @@ import SignIn from '../views/SignIn.vue';
 import SignUp from '../views/SignUp.vue';
 import Restaurants from '../views/Restaurants.vue';
 const credit = JSON.parse(localStorage.getItem('credit'));
-console.log('credit', credit);
 
 Vue.use(VueRouter);
 
