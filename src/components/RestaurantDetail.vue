@@ -21,10 +21,22 @@
                 <template v-slot:footer>
                     <b-button-group>
                         <b-button :href="'/restaurants/'+restaurant.id+'/dashboard'" variant="primary">DASHBOARD</b-button>
-                        <b-button type="button" size="sm" variant="success" v-if="isFavorited === false">
+                        <b-button 
+                            type="button"
+                            @click.once="addFavorited(restaurant.id)"
+                            size="sm" 
+                            variant="success" 
+                            v-if="isFavorited === false"
+                        >
                             加到最愛
                         </b-button>
-                        <b-button type="button" size="sm" variant="danger" v-if="isFavorited === true">
+                        <b-button 
+                            type="button"
+                            @click.once="removeFavorited(restaurant.id)"
+                            size="sm" 
+                            variant="danger" 
+                            v-if="isFavorited === true"
+                        >
                             移除最愛
                         </b-button>
                         <b-button type="button" size="sm" variant="success" v-if="isLiked === false">
@@ -59,11 +71,11 @@ export default {
         RestaurantComments,
         CreateComment
     },
-    props: {
-        initRestaurant: {
-            type: Object
-        }
-    },
+    // props: {
+    //     initRestaurant: {
+    //         type: Object
+    //     }
+    // },
     filters: {
         shortenDesc(d) {
             if (!d) return 'No description yet';
@@ -101,6 +113,13 @@ export default {
         async afterDelComment(commentId) {
             await request.deleteComment(commentId);
             this.initComments = this.initComments.filter(c => c.id !== commentId);
+        },
+        addFavorited(rId) {
+            this.$emit('after-add-Favorite', rId);
+        },
+
+        removeFavorited(rId) {
+            this.$emit('after-delete-Favorite', rId);
         }
     },
     async updated() {
@@ -108,9 +127,14 @@ export default {
             this.obj = await request.getRestaurant(document.location.pathname);
             this.initComments = this.obj.restaurant.Comments;
         } catch (error) {
-            this.error = 'Somthing went wrong during update:' + error.message
+            this.error = 'Somthing went wrong during update:' + error.message;
         }
     },
+    watch: {
+        obj: function(updateData) {
+            this.isFavorited = updateData.isFavorited;
+        }
+    }
 }
 </script>
 
