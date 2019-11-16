@@ -13,12 +13,22 @@
                 </span>
 
                 <b-card-footer class="mt-3">
-                    <b-form v-if="user.isFollowed">
-                        <b-button type="submit" variant="danger">移除追蹤</b-button>
-                    </b-form>
-                    <b-form v-if="!user.isFollowed">
-                        <b-button type="submit" variant="success">追蹤</b-button>
-                    </b-form>
+                    <b-button 
+                        type="button"
+                        @click.stop.prevent="removeFollowing(user.id)"
+                        v-if="user.isFollowed"
+                        variant="danger"
+                    >
+                        移除追蹤
+                    </b-button>
+                    <b-button 
+                        type="button"
+                        @click.stop.prevent="addFollowing(user.id)"
+                        v-if="!user.isFollowed"
+                        variant="success"
+                    >
+                        追蹤
+                    </b-button>
                 </b-card-footer>
             </b-card>
         </b-card-group>
@@ -26,6 +36,7 @@
 </template>
 
 <script>
+
 export default {
     props: {
         initUser: {
@@ -35,6 +46,19 @@ export default {
     data() {
         return {
             user: this.initUser
+        }
+    },
+    methods: {
+        async addFollowing(uId) {
+            this.$emit('after-add-following', uId);
+        },
+        async removeFollowing(uId) {
+            this.$emit('after-remove-following', uId);
+        }
+    },
+    watch: {
+        initUser: function(update) {
+            console.log('update', update);
         }
     }
 }

@@ -167,6 +167,19 @@ class Request {
         })
     }
 
+    postFollow(uId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await postAuthRequest(config.ROOT_URL+'/following/'+uId);
+                resolve (
+                    res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     deleteComment(cId) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -199,6 +212,20 @@ class Request {
             try {
                 const res = await deleteRequest(config.ROOT_URL+'/like/'+rId)
                 resolve(
+                    res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    deleteFollow(uId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                console.log('deleteFollow uId', uId);
+                const res = await deleteRequest(config.ROOT_URL+'/following/'+uId);
+                resolve (
                     res
                 );
             } catch (error) {

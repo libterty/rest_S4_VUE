@@ -9,7 +9,9 @@
             <UsersTop 
                 v-for="user in users"
                 :key="user.id"     
-                :initUser="user"   
+                :initUser="user"
+                @after-add-following="afterAddFollowing"
+                @after-remove-following="afterRemoveFollowing"
             />
         </div>
     </b-container>
@@ -37,6 +39,20 @@ export default {
             this.users = await request.getTopUsers();
         } catch (error) {
             this.error = error.message;
+        }
+    },
+    methods: {
+        async afterAddFollowing(uId) {
+            await request.postFollow(uId);
+        },
+        async afterRemoveFollowing(uId) {
+            console.log('uId', uId);
+            await request.deleteFollow(uId);
+        }
+    },
+    watch: {
+        users: function(updateData) {
+            console.log('updateData',updateData);
         }
     }
 }
