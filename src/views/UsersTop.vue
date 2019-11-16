@@ -44,15 +44,29 @@ export default {
     methods: {
         async afterAddFollowing(uId) {
             await request.postFollow(uId);
+            this.users = this.users.filter(user => {
+                if (user.id !== uId) {
+                    return user;
+                } else {
+                    return user.isFollowed = !user.isFollowed;
+                }
+            });
         },
         async afterRemoveFollowing(uId) {
-            console.log('uId', uId);
+            // issue in here!!
             await request.deleteFollow(uId);
+            this.users = this.users.filter(user => {
+                if (user.id === uId) {
+                    return user.isFollowed = !user.isFollowed;
+                } else {
+                    return user;
+                }
+            });
         }
     },
     watch: {
         users: function(updateData) {
-            console.log('updateData',updateData);
+            this.users = updateData;
         }
     }
 }

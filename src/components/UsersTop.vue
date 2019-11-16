@@ -3,7 +3,7 @@
         <b-card-group deck>
             <b-card
                 :title="user.name"
-                :img-src="user.image"
+                :img-src="user.image | avoidNull"
                 :img-alt="user.name"
                 img-top
                 class="mb-2"
@@ -43,6 +43,12 @@ export default {
             required: true
         }
     },
+    filters: {
+        avoidNull(img) {
+            if(!img) return '#';
+            return img;
+        }
+    },
     data() {
         return {
             user: this.initUser
@@ -55,11 +61,12 @@ export default {
         async removeFollowing(uId) {
             this.$emit('after-remove-following', uId);
         }
-    },
-    watch: {
-        initUser: function(update) {
-            console.log('update', update);
-        }
     }
 }
 </script>
+
+<style scoped>
+img {
+    min-height: 348px;
+}
+</style>
