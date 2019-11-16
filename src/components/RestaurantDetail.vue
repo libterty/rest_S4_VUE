@@ -42,7 +42,9 @@
             <RestaurantComments :initComments="initComments" @after-del-comment="afterDelComment"/>
         </div>
         <hr>
-        <CreateComment/>
+        <div v-if="restaurantId">
+            <CreateComment :initId="restaurantId"/>
+        </div>
     </div>
 </template>
 
@@ -79,7 +81,8 @@ export default {
             isFavorited: Boolean,
             isLiked: Boolean,
             restaurant: {},
-            initComments: []
+            initComments: [],
+            restaurantId: null
         }
     },
     async created() {
@@ -89,6 +92,7 @@ export default {
             this.isFavorited = this.obj.isFavorited;
             this.isLiked = this.obj.isLiked;
             this.initComments = this.obj.restaurant.Comments;
+            this.restaurantId = this.obj.restaurant.id;
         } catch (error) {
             this.error = error.message;
         }

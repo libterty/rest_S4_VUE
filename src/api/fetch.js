@@ -24,6 +24,17 @@ export const postRequest = (url, data) => {
         .catch(err => console.log('fetch POST err', err.message));
 }
 
+export const postAuthRequest = (url, data) => {
+    return axios({
+        method: 'POST',
+        url: url,
+        data: data,
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer '+auth.token}
+    })
+        .then(res => { return res})
+        .catch(err => console.log('fetch POST Auth err', err.message));
+}
+
 export const deleteRequest = url => {
     return axios.delete(url, 
         {  headers:

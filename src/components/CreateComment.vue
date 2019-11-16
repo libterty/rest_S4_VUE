@@ -1,18 +1,18 @@
 <template>
     <div>
-        <b-form>
+        <b-form @submit="onSubmit">
             <b-form-group
                 class="mb-0"
                 label="Leave with some comments : "
                 label-for="userComment"
-                description="Leave some of your comment for the restaurant"
+                description="Please input your Comments here (Minimum comments required 15 words)"
             >
                 <b-col sm="12">
                     <b-form-textarea
-                        id="userComment"
-                        v-model="userComment"
+                        id="text"
+                        v-model="form.text"
                         placeholder="Place your comments here"
-                        :state="userComment.length >= 15"
+                        :state="form.text.length >= 15"
                         rows="3"
                         max-rows="8"
                     ></b-form-textarea>
@@ -31,10 +31,37 @@
 </template>
 
 <script>
+import Request from '../api';
+const request = new Request();
+
 export default {
+    props: {
+        initId: {
+            required: true
+        }
+    },
     data() {
         return {
-            userComment: ''
+            form: {
+                text: '',
+                restaurantId: this.initId
+            }
+        }
+    },
+    methods: {
+        async onSubmit(evt) {
+            evt.preventDefault();
+            if (!this.form.text) {
+                alert('Empty Input');
+            } else if (this.form.text.length < 15) {
+                alert('Insufficient content, please leave your comment with more then 15 words');
+            } else {
+                const data = JSON.stringify(this.form);
+                console.log('send data', data);
+                const res = await request.postComment(data);
+                console.log(res);
+                res.status === 'error' ? alert(res.message) : alert(`Create ${res.status}`);
+            }
         }
     }
 }

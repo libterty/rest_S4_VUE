@@ -1,4 +1,4 @@
-import { getRequest, postRequest, deleteRequest } from './fetch';
+import { getRequest, postRequest, postAuthRequest, deleteRequest } from './fetch';
 import config from '../../config';
 
 class Request {
@@ -98,6 +98,19 @@ class Request {
                 );
             } catch (error) {
                 reject
+            }
+        })
+    }
+
+    postComment(data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await postAuthRequest(config.ROOT_URL+'/comments', data);
+                resolve (
+                    res.data
+                );
+            } catch (error) {
+                reject(error);
             }
         })
     }
