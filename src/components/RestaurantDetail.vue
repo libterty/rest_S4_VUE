@@ -73,7 +73,6 @@ export default {
         }
     },
     data() {
-        console.log("parents comments", this.initComments);
         return {
             obj: {},
             error: '',
@@ -98,6 +97,7 @@ export default {
         async afterDelComment(commentId) {
             await request.deleteComment(commentId);
             this.initComments = this.initComments.filter(c => c.id !== commentId);
+            console.log('this.initComments', this.initComments);
         }
     }
 }

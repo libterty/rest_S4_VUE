@@ -1,6 +1,6 @@
 <template>
     <b-container class="py-5">
-        <h2>所有評論</h2>
+        <!-- <h2>{{comments}}</h2> -->
         <b-list-group>
             <b-list-group-item
                 v-for="comment in comments"
@@ -36,7 +36,6 @@ const user = JSON.parse(localStorage.getItem('credit')).user;
 export default {
     props: {
         initComments: {
-            type: Array,
             required: true
         }
     },
@@ -47,7 +46,6 @@ export default {
         }
     },
     data() {
-        console.log('childs comments', this.initComments);
         return {
             comments: this.initComments,
             isAdmin: user.isAdmin || false
@@ -57,6 +55,11 @@ export default {
         handleDeleteButtonClick(commentId) {
             confirm('Do you want to delete the comment?');
             this.$emit('after-del-comment', commentId)
+        }
+    },
+    watch: {
+        initComments: function (updateData) {
+            this.comments = updateData
         }
     }
 }
