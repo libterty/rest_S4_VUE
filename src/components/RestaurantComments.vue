@@ -54,12 +54,12 @@ export default {
     methods: {
         handleDeleteButtonClick(commentId) {
             confirm('Do you want to delete the comment?');
-            this.$emit('after-del-comment', commentId)
+            this.$emit('after-del-comment', commentId);
         }
     },
     watch: {
         initComments: function (updateData) {
-            this.comments = updateData
+            this.comments = updateData;
         }
     }
 }

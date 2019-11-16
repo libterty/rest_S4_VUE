@@ -20,26 +20,26 @@
                     <b-button-group>
                         <b-button 
                             type="button"
-                            @click="addFavorited(restaurant.id)" 
+                            @click.stop.prevent="addFavorited(restaurant.id)" 
                             size="sm" 
                             variant="success" 
-                            v-if="restaurant.isFavorited"
+                            v-if="!restaurant.isFavorited"
                         >
                             加到最愛
                         </b-button>
                         <b-button 
                             type="button" 
-                            @click="removeFavorited(restaurant.id)" 
+                            @click.stop.prevent="removeFavorited(restaurant.id)" 
                             size="sm" 
                             variant="danger" 
-                            v-if="!restaurant.isFavorited"
+                            v-if="restaurant.isFavorited"
                         >
                             移除最愛
                         </b-button>
-                        <b-button type="button" size="sm" variant="success" v-if="restaurant.isLiked">
+                        <b-button type="button" size="sm" variant="success" v-if="!restaurant.isLiked">
                             <i class="far fa-heart"></i>
                         </b-button>
-                        <b-button type="button" size="sm" variant="danger" v-if="!restaurant.isLiked">
+                        <b-button type="button" size="sm" variant="danger" v-if="restaurant.isLiked">
                             <i class="fas fa-heart"></i>
                         </b-button>
                     </b-button-group>
@@ -50,9 +50,6 @@
 </template>
 
 <script>
-import Request from '../api';
-const request = new Request();
-
 export default {
     name: 'Restaurants',
     filters: {
@@ -72,14 +69,17 @@ export default {
         }
     },
     methods: {
-        async addFavorited(rId) {
-            const res = await request.postFavorite(rId);
-            console.log('main page add Favorite res', res);
+        addFavorited(rId) {
+            this.$emit('after-add-Favorite', rId);
         },
 
-        async removeFavorited(rId) {
-            const res = await request.deleteFavorite(rId);
-            console.log('main page remove Favorite res', res);
+        removeFavorited(rId) {
+            this.$emit('after-delete-Favorite', rId);
+        }
+    },
+    watch: {
+        initialRestaurant: function(updateData) {
+            this.restaurant = updateData;
         }
     }
 }

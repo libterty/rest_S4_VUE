@@ -7,6 +7,8 @@
                 v-for="restaurant in restaurants"
                 :key="restaurant.id"
                 :initialRestaurant="restaurant"
+                @after-add-Favorite="afterAddFavorite"
+                @after-delete-Favorite="afterDeleteFavorite"
             />
         </div>
         <RestaurantsPagination />
@@ -52,6 +54,14 @@ export default {
             this.categories = this.res.categories.map(cate => cate);
         } catch (error) {
             this.error = error.message;
+        }
+    },
+    methods: {
+        async afterAddFavorite(rId) {
+            await request.postFavorite(rId);
+        },
+        async afterDeleteFavorite(rId) {
+            await request.deleteFavorite(rId);
         }
     }
 }

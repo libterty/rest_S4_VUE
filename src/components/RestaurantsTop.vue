@@ -88,8 +88,7 @@ export default {
     },
     methods: {
         async removeFavorited(rId) {
-            const res = await request.deleteFavorite(rId);
-            console.log('removeFavorited res', res);
+            await request.deleteFavorite(rId);
         }
     }
 }

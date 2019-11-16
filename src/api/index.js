@@ -144,6 +144,7 @@ class Request {
     postFavorite(rId) {
         return new Promise(async (resolve, reject) => {
             try {
+                console.log('postFavorite Rq', rId);
                 const res = await postAuthRequest(config.ROOT_URL+'/favorite/'+rId);
                 resolve (
                     res
@@ -170,6 +171,7 @@ class Request {
     deleteFavorite(rId) {
         return new Promise(async (resolve, reject) => {
             try {
+                console.log('deleteFavorite Rq', rId);
                 const res = await deleteRequest(config.ROOT_URL+'/favorite/'+rId)
                 resolve(
                     res
