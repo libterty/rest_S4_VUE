@@ -53,12 +53,14 @@ export default {
             });
         },
         async afterRemoveFollowing(uId) {
-            // issue in here!!
             await request.deleteFollow(uId);
             this.users = this.users.filter(user => {
-                if (user.id === uId) {
-                    return user.isFollowed = !user.isFollowed;
+                if (user.id !== uId) {
+                    return user;
                 } else {
+                    if (user) {
+                        user.isFollowed = !user.isFollowed;
+                    }
                     return user;
                 }
             });
