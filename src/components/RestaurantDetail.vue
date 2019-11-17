@@ -9,9 +9,18 @@
             >
                 <b-card-text>
                     <b-list-group>
-                        <b-list-group-item>opening_hours : {{restaurant.opening_hours}}</b-list-group-item>
-                        <b-list-group-item>(TEL) : {{restaurant.tel}}</b-list-group-item>
-                        <b-list-group-item>Address : {{restaurant.address}}</b-list-group-item>
+                        <b-list-group-item>
+                            <strong>opening_hours : </strong>
+                            <small>{{restaurant.opening_hours}}</small>
+                        </b-list-group-item>
+                        <b-list-group-item>
+                            <strong>(TEL) : </strong>
+                            <small>{{restaurant.tel}}</small>
+                        </b-list-group-item>
+                        <b-list-group-item>
+                            <strong>Address : </strong>
+                            <small>{{restaurant.address}}</small>
+                        </b-list-group-item>
                     </b-list-group>
                 </b-card-text>
             </b-card>

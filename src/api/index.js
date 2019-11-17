@@ -196,7 +196,6 @@ class Request {
     deleteFavorite(rId) {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log('deleteFavorite Rq', rId);
                 const res = await deleteRequest(config.ROOT_URL+'/favorite/'+rId)
                 resolve(
                     res
@@ -223,7 +222,6 @@ class Request {
     deleteFollow(uId) {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log('deleteFollow uId', uId);
                 const res = await deleteRequest(config.ROOT_URL+'/following/'+uId);
                 resolve (
                     res
