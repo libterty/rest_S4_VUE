@@ -36,8 +36,6 @@ export const postAuthRequest = (url, data) => {
 }
 
 export const putAuthRequest = (url, data) => {
-    console.log('fetch log url', url)
-    console.log('fetch log data', data)
     return axios({
         method: 'PUT',
         url: url,
