@@ -20,6 +20,11 @@ const routes = [
     redirect: '/admin/restaurants'
   },
   {
+    path: '/admin/restaurants',
+    name: 'admin-restaurants',
+    component: () => import('../views/AdminRestaurants.vue')
+  },
+  {
     path: '/signin',
     name: 'SignIn',
     component: SignIn

@@ -34,15 +34,28 @@ class Request {
             try {
                 if (!url) {
                     const res = await getRequest(config.REST_BASE_URL);
-                    resolve(
+                    resolve (
                         res
                     );
                 } else {
                     const res = await getRequest(config.REST_BASE_URL+url);
-                    resolve(
+                    resolve (
                         res
                     );
                 }
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    getAdminRestaurants() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await getRequest(config.ADMIN_BASE_URL+'/restaurants');
+                resolve (
+                    res.restaurants
+                );
             } catch (error) {
                 reject(error);
             }
