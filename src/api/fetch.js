@@ -20,7 +20,7 @@ export const postRequest = (url, data) => {
         data: data,
         headers: { 'Content-Type': 'application/json' }
     })
-        .then(res => { return res})
+        .then(res => { return res })
         .catch(err => console.log('fetch POST err', err.message));
 }
 
@@ -31,8 +31,21 @@ export const postAuthRequest = (url, data) => {
         data: data,
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer '+auth.token}
     })
-        .then(res => { return res})
+        .then(res => { return res })
         .catch(err => console.log('fetch POST Auth err', err.message));
+}
+
+export const putAuthRequest = (url, data) => {
+    console.log('fetch log url', url)
+    console.log('fetch log data', data)
+    return axios({
+        method: 'PUT',
+        url: url,
+        data: data,
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer '+auth.token}
+    })
+        .then(res => { return res })
+        .catch(err => console.log('fetch PUT Auth err', err.message));
 }
 
 export const deleteRequest = url => {

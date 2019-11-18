@@ -1,4 +1,4 @@
-import { getRequest, postRequest, postAuthRequest, deleteRequest } from './fetch';
+import { getRequest, postRequest, postAuthRequest, putAuthRequest, deleteRequest } from './fetch';
 import config from '../../config';
 
 class Request {
@@ -127,6 +127,24 @@ class Request {
         })
     }
 
+    getAdminCategories() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await getRequest(config.ADMIN_BASE_URL + '/categories');
+                resolve(
+                    res.categories.map(c => {
+                        return {
+                            value: c.id,
+                            text: c.name
+                        }
+                    })
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     postSignIn(data) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -199,6 +217,19 @@ class Request {
                 const res = await postAuthRequest(config.ROOT_URL+'/following/'+uId);
                 resolve (
                     res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    putAdminRestaurant(url, data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await putAuthRequest(config.ADMIN_BASE_URL + url, data)
+                resolve (
+                    res.data
                 );
             } catch (error) {
                 reject(error);
