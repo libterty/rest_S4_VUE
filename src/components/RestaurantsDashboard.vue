@@ -8,15 +8,15 @@
                 <b-col md="6">
                     <b-card-body :title="restaurant.name" :sub-title="restaurant.Category.name">
                         <b-list-group flush>
-                            <b-list-group-item>
+                            <b-list-group-item class="text-left">
                                 <strong>評論數 : </strong>
                                 <small>{{restaurant.Comments | arrLength}}</small>
                             </b-list-group-item>
-                            <b-list-group-item>
+                            <b-list-group-item class="text-left">
                                 <strong>瀏覽次數 : </strong>
                                 <small>{{restaurant.viewCounts | avoidNull}}</small>
                             </b-list-group-item>
-                            <b-list-group-item>
+                            <b-list-group-item class="text-left">
                                 <strong>收藏次數 : </strong>
                                 <small>{{restaurant.FavoriteCount | avoidNull}}</small>
                             </b-list-group-item>
@@ -58,9 +58,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.list-group-item {
-    width: 100%;
-}
-</style>

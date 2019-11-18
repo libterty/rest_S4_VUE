@@ -16,11 +16,11 @@
                     <b-col md="6">
                         <b-card-body :title="restaurant.name">
                             <b-list-group flush>
-                                <b-list-group-item>
+                                <b-list-group-item class="text-left">
                                     <strong>收藏次數 : </strong>
                                     <small>{{restaurant.FavoriteCount | avoidNull}}</small>
                                 </b-list-group-item>
-                                <b-list-group-item>
+                                <b-list-group-item class="text-left">
                                     {{restaurant.description | shortenDesc}}
                                 </b-list-group-item>
                             </b-list-group>

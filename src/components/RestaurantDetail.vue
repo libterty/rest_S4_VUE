@@ -9,15 +9,15 @@
             >
                 <b-card-text>
                     <b-list-group>
-                        <b-list-group-item>
+                        <b-list-group-item class="text-left">
                             <strong>opening_hours : </strong>
                             <small>{{restaurant.opening_hours}}</small>
                         </b-list-group-item>
-                        <b-list-group-item>
+                        <b-list-group-item class="text-left">
                             <strong>(TEL) : </strong>
                             <small>{{restaurant.tel}}</small>
                         </b-list-group-item>
-                        <b-list-group-item>
+                        <b-list-group-item class="text-left">
                             <strong>Address : </strong>
                             <small>{{restaurant.address}}</small>
                         </b-list-group-item>
