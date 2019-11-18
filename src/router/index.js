@@ -15,6 +15,11 @@ const routes = [
     redirect: '/restaurants' 
   },
   {
+    path: '/admin',
+    exact: true,
+    redirect: '/admin/restaurants'
+  },
+  {
     path: '/signin',
     name: 'SignIn',
     component: SignIn
