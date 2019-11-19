@@ -224,10 +224,36 @@ class Request {
         })
     }
 
+    postAdminCategory(data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await postAuthRequest(config.ADMIN_BASE_URL + '/categories', data)
+                resolve (
+                    res.data
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     putAdminRestaurant(url, data) {
         return new Promise(async (resolve, reject) => {
             try {
                 const res = await putAuthRequest(config.ADMIN_BASE_URL + url, data)
+                resolve (
+                    res.data
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    putAdminCategory(data, cId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await putAuthRequest(config.ADMIN_BASE_URL + `/categories/${cId}`, data);
                 resolve (
                     res.data
                 );
@@ -282,6 +308,19 @@ class Request {
                 const res = await deleteRequest(config.ROOT_URL+'/following/'+uId);
                 resolve (
                     res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    deleteAdminCategory(cId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await deleteRequest(config.ADMIN_BASE_URL + `/categories/${cId}`);
+                resolve (
+                    res.data
                 );
             } catch (error) {
                 reject(error);

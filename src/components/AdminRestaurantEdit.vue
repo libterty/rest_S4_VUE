@@ -137,9 +137,6 @@
 </template>
 
 <script>
-// import Request from '../api';
-// const request = new Request();
-
 export default {
     props: {
         initRestaurant: {
