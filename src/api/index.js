@@ -237,6 +237,19 @@ class Request {
         })
     }
 
+    postAdminRestaurant(data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await postAuthRequest(config.ADMIN_BASE_URL + '/restaurants', data);
+                resolve (
+                    res.data
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     putAdminRestaurant(url, data) {
         return new Promise(async (resolve, reject) => {
             try {

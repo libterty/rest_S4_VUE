@@ -47,7 +47,6 @@ export const putAuthRequest = (url, data) => {
 }
 
 export const deleteRequest = url => {
-    console.log('fetch log url', url);
     return axios.delete(url, 
         {  headers:
             { Authorization: 'Bearer '+auth.token}
