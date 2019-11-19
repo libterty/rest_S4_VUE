@@ -8,6 +8,9 @@
                 @after-submit-IsAdmin="afterSubmitIsAdmin"
             />
         </b-container>
+        <br>
+        <br>
+        <a href="javascript:history.back()">回上一頁</a>
     </b-container>
 </template>
 
