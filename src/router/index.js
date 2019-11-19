@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '../store';
+// import store from '../store';
 import NotFound from '../views/NotFound.vue';
 import SignIn from '../views/SignIn.vue';
 import SignUp from '../views/SignUp.vue';
@@ -104,11 +104,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from , next) => {
-  console.log('to', to);
-  console.log('from', from);
-  console.log('store.state.token', store.state.currentUser);
-  const res = await store.dispatch('fetchCurrentUser');
-  console.log('fetch res', res);
   if(!credit && to.name !=='SignIn' && to.name !=='SignUp') {
     next('/signin');
     return;
@@ -117,6 +112,13 @@ router.beforeEach(async (to, from , next) => {
   if (credit) {
     if (to.name === 'SignIn' || to.name === 'Signup') {
       next('/restaurants');
+      return;
+    }
+  }
+
+  if (credit && credit.user.isAdmin === false) {
+    if (to.path.includes('/admin')) {
+      next('/404');
       return;
     }
   }
