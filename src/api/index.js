@@ -145,6 +145,19 @@ class Request {
         })
     }
 
+    getAdminUsers() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await getRequest(config.ADMIN_BASE_URL + '/users');
+                resolve (
+                    res.users
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     postSignIn(data) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -267,6 +280,19 @@ class Request {
         return new Promise(async (resolve, reject) => {
             try {
                 const res = await putAuthRequest(config.ADMIN_BASE_URL + `/categories/${cId}`, data);
+                resolve (
+                    res.data
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    putAdminUser(cId, data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await putAuthRequest(config.ADMIN_BASE_URL + `/users/${cId}`, data);
                 resolve (
                     res.data
                 );

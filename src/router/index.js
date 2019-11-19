@@ -30,6 +30,11 @@ const routes = [
     component: () => import('../views/AdminCategories.vue')
   },
   {
+    path: '/admin/users',
+    name: 'admin-users',
+    component: () => import('../views/AdminUsers.vue')
+  },
+  {
     path: '/admin/restaurants/create',
     name: 'admin-restaurant-create',
     component: () => import('../views/AdminRestaurantCreate.vue')
