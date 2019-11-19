@@ -2,12 +2,12 @@
     <div>
         <div>
             <b-form v-if="isCreate" @submit.stop.prevent="onSubmitCreate">
-                <b-form-input v-model="form.name" placeholder="Create New Category"></b-form-input>
+                <b-form-input v-model="form.name" placeholder="Create New Category" required></b-form-input>
                 <b-button type="submit" variant="success">Submit</b-button>
                 <b-button type="button" variant="warning" @click.prevent="closeWindow">Close</b-button>
             </b-form>
             <b-form v-if="isEdit" @submit.stop.prevent="onSubmitEdit(editItem.value)">
-                <b-form-input v-model="form.name" :placeholder="'Edit ' + editItem.text"></b-form-input>
+                <b-form-input v-model="form.name" :placeholder="'Edit ' + editItem.text" required></b-form-input>
                 <b-button type="submit" variant="success">Submit</b-button>
                 <b-button type="button" variant="info" @click.prevent="setCreate">Create New Category</b-button>
                 <b-button type="button" variant="warning" @click.prevent="closeWindow">Close</b-button>
@@ -75,16 +75,24 @@ export default {
             this.isEdit ? this.isEdit = false : this.isCreate = false;
         },
         onSubmitEdit(cId) {
-            const data = JSON.stringify(this.form);
-            this.$emit('after-submit-edit', data, cId);
-            this.isEdit = false;
-            this.form.name = '';
+            if (this.form.name !== '') {
+                const data = JSON.stringify(this.form);
+                this.$emit('after-submit-edit', data, cId);
+                this.isEdit = false;
+                this.form.name = '';
+            } else {
+                alert('Do you forget to input Category?');
+            }
         },
         onSubmitCreate() {
-            const data = JSON.stringify(this.form);
-            this.$emit('after-submit-create', data);
-            this.isCreate = false;
-            this.form.name = '';
+            if (this.form.name !== '') {
+                const data = JSON.stringify(this.form);
+                this.$emit('after-submit-create', data);
+                this.isCreate = false;
+                this.form.name = '';
+            } else {
+                alert('Do you forget to input Category?');
+            }
         },
         onClickDelete(cId) {
             this.$emit('after-click-delete', cId);

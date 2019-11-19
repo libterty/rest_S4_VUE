@@ -170,8 +170,12 @@ export default {
         },
         async onSubmit() {
             confirm('Confirm to Change ?');
-            const data = JSON.stringify(this.form);
-            this.$emit('after-submit-data', data);
+            if (this.form.name !== '' && this.form.categoryId !== '' && this.form.tel !== '' && this.form.address !== '' && this.form.openingHours !== '' && this.form.description !== '' && this.form.image !== null ) {
+                const data = JSON.stringify(this.form);
+                this.$emit('after-submit-data', data);
+            } else {
+                alert('Do you forget to input something ?');
+            }
         },
         onReset() {
             this.form.name = this.initRestaurant.name,
