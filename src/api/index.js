@@ -315,6 +315,19 @@ class Request {
         })
     }
 
+    deleteAdminRestaurant(rId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await deleteRequest(config.ADMIN_BASE_URL + `/restaurants/${rId}`);
+                resolve (
+                    res.data
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     deleteAdminCategory(cId) {
         return new Promise(async (resolve, reject) => {
             try {

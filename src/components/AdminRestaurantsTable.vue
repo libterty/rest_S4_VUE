@@ -19,7 +19,7 @@
                         <b-button-group>
                             <b-button :href="'restaurants/'+restaurant.id" variant="info">Show</b-button>
                             <b-button :href="'restaurants/'+restaurant.id+'/edit'" variant="warning">Edit</b-button>
-                            <b-button variant="danger">Delete</b-button>
+                            <b-button variant="danger" @click.stop.prevent="onClickDelete(restaurant.id)">Delete</b-button>
                         </b-button-group>
                     </b-td>
                 </b-tr>
@@ -33,6 +33,16 @@ export default {
     props: {
         initRestaurants: {
             type: Array
+        }
+    },
+    methods: {
+        onClickDelete(rId) {
+            this.$emit('after-click-delete', rId);
+        }
+    },
+    watch: {
+        initRestaurants: function(updateData) {
+            this.initRestaurants = updateData;
         }
     }
 }
