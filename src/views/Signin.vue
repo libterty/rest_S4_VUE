@@ -63,9 +63,18 @@ export default {
         async onSubmit(evt) {
             evt.preventDefault();
             confirm('Confirm to SignIn ?');
-            const data = JSON.stringify(this.form);
-            const res = await request.postSignIn(data);
-            res.status === 'success' ? router.push('/restaurants') : null;
+            if (this.form.email !== '' || this.form.password !== '') {
+                const data = JSON.stringify(this.form);
+                const res = await request.postSignIn(data);
+                if (res.status === 'success') {
+                    this.$store.commit('setCurrentUser', res.user);
+                    router.push('/restaurants');
+                } else {
+                    throw new Error(res.message);
+                }
+            } else {
+                alert('Please fill in all the Form');
+            }
         },
         onReset() {
             this.form.email = '',

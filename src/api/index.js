@@ -2,6 +2,19 @@ import { getRequest, postRequest, postAuthRequest, putAuthRequest, deleteRequest
 import config from '../../config';
 
 class Request {
+    getCurrentUser() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await getRequest(config.ROOT_URL + '/get_current_user');
+                resolve (
+                    res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     getFeeds() {
         return new Promise(async (resolve, reject) => {
             try {

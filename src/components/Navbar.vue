@@ -9,19 +9,20 @@
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav class="ml-auto">
                 <b-nav-item
-                    v-if="authUser.user.isAdmin"
+                    v-if="user.isAdmin"
                     :href="'/admin'"
                     class="text-white mr-3"
                 >
                     <p>管理員後台</p>
                 </b-nav-item>
                 <b-nav-item 
-                    :href="'/users/'+authUser.user.id" 
+                    :href="'/users/'+user.id" 
                     class="text-white mr-3"
                 >
-                    <p>{{authUser.user.name | avoidNull}} 您好</p>
+                    <p>{{user.name | avoidNull}} 您好</p>
                 </b-nav-item>
-                <b-button 
+                <b-button
+                    v-if="user.id"
                     size="sm"
                     @click.stop.prevent="logOutUser"
                     type="button" 
@@ -35,19 +36,36 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import router from '../router';
+import Request from '../api';
+const request = new Request();
+
 export default {
     name: 'Navbar',
     data() {
         return {
-            authUser: JSON.parse(localStorage.getItem('credit')) || {}
+            authUser: JSON.parse(localStorage.getItem('credit')) || {},
+            user: {}
+        }
+    },
+    async created() {
+        try {
+            this.user = await request.getCurrentUser();
+        } catch (error) {
+            throw new Error(error.message);
         }
     },
     methods: {
-        logOutUser() {
-            if (this.authUser.token) {
-                localStorage.clear('credit');
-                router.push('/signin');
+        async logOutUser() {
+            try {
+                if (Object.keys(this.authUser) !== 0) {
+                    localStorage.clear('credit');
+                    router.push('/signin');
+                    this.user = {}
+                }
+            } catch (error) {
+                throw new Error(error.message);
             }
         }
     },
@@ -55,6 +73,17 @@ export default {
         avoidNull(name) {
             if(!name) return '使用者';
             return name;
+        }
+    },
+    computed: {
+        ...mapState(['currentUser', 'isAuthenticated'])
+    },
+    watch: {
+        authUser: function(updateData) {
+            this.authUser = updateData;
+        },
+        user: function(updateData) {
+            this.user = updateData;
         }
     }
 }

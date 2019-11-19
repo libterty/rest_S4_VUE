@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '../store';
 import NotFound from '../views/NotFound.vue';
 import SignIn from '../views/SignIn.vue';
 import SignUp from '../views/SignUp.vue';
@@ -97,20 +98,30 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  linkExactActiveClass: 'active',
   mode: 'history',
   routes
 });
 
-router.beforeEach((to, from , next) => {
-  if(!credit) {
-    if (to.name !== 'SignIn' && to.name !== 'SignUp') {
-      credit ? next() : next('/signin')
-    } else {
-      next();
-    }
-  } else {
-    next();
+router.beforeEach(async (to, from , next) => {
+  console.log('to', to);
+  console.log('from', from);
+  console.log('store.state.token', store.state.currentUser);
+  const res = await store.dispatch('fetchCurrentUser');
+  console.log('fetch res', res);
+  if(!credit && to.name !=='SignIn') {
+    next('/signin');
+    return;
   }
+
+  if (credit) {
+    if (to.name === 'SignIn' || to.name === 'Signup') {
+      next('/restaurants');
+      return;
+    }
+  }
+
+  next();
 })
 
 export default router;
