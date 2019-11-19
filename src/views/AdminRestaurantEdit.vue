@@ -29,15 +29,14 @@ export default {
         this.initRestaurant = await request.getAdminRestaurant(url);
         this.initCategories = await request.getAdminCategories();
     },
-    async updated() {
-        const url = document.location.pathname.replace(/\/edit/gi, '');
-        this.initRestaurant = await request.getAdminRestaurant(url);
-        this.initCategories = await request.getAdminCategories();
-    },
     methods: {
         async afterSubmitData(data) {
             const uId = document.location.pathname.replace(/\/edit/gi, '').replace(/\/admin/, '');
-            await request.putAdminRestaurant(uId, data);
+            const res = await request.putAdminRestaurant(uId, data);
+            if (res.status === 'success') {
+                const url = document.location.pathname.replace(/\/edit/gi, '');
+                this.initRestaurant = await request.getAdminRestaurant(url);
+            }
         }
     }
 }
