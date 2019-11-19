@@ -109,7 +109,7 @@ router.beforeEach(async (to, from , next) => {
   console.log('store.state.token', store.state.currentUser);
   const res = await store.dispatch('fetchCurrentUser');
   console.log('fetch res', res);
-  if(!credit && to.name !=='SignIn') {
+  if(!credit && to.name !=='SignIn' && to.name !=='SignUp') {
     next('/signin');
     return;
   }

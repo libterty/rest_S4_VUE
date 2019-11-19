@@ -70,12 +70,13 @@
                 <b-button type="submit" variant="primary">Submit</b-button>
                 <b-button type="reset" variant="danger" style="margin-left: 0.25rem">Reset</b-button>
             </b-form>
+            <br>
+            <router-link to="/signin">Already have account? Go Sign in !!</router-link>
         </b-container>
     </div>
 </template>
 
 <script>
-import router from '../router';
 import Request from '../api';
 const request = new Request();
 
@@ -102,7 +103,11 @@ export default {
             } else {
                 const data = JSON.stringify(this.form);
                 const res = await request.postSignUp(data);
-                res.status === 'success' ? router.push('/signin') : null;
+                if (res.status === 'success') {
+                    this.$router
+                        .go({ name: 'SignIn' })
+                        .catch(e => console.log(e));
+                }
             }
         },
         onReset() {

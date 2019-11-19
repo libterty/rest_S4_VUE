@@ -40,12 +40,14 @@
                 <b-button type="submit" variant="primary">Submit</b-button>
                 <b-button type="reset" variant="danger" style="margin-left: 0.25rem">Reset</b-button>
             </b-form>
+            <br>
+            <router-link to="/signup">Don't have account ? Sign up !!</router-link>
         </b-container>
     </div>
 </template>
 
 <script>
-import router from '../router';
+// import router from '../router';
 import Request from '../api';
 const request = new Request();
 
@@ -68,7 +70,9 @@ export default {
                 const res = await request.postSignIn(data);
                 if (res.status === 'success') {
                     this.$store.commit('setCurrentUser', res.user);
-                    router.push('/restaurants');
+                    this.$router
+                        .go({ name: 'Restaurants' })
+                        .catch(e => console.log(e));
                 } else {
                     throw new Error(res.message);
                 }

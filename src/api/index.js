@@ -15,6 +15,19 @@ class Request {
         })
     }
 
+    getUser(uId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await getRequest(config.ROOT_URL+`/users/${uId}`);
+                resolve (
+                    res
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     getFeeds() {
         return new Promise(async (resolve, reject) => {
             try {

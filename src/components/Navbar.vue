@@ -37,31 +37,35 @@
 
 <script>
 import { mapState } from 'vuex';
-import router from '../router';
 import Request from '../api';
 const request = new Request();
+const credit = JSON.parse(localStorage.getItem('credit'));
 
 export default {
     name: 'Navbar',
     data() {
         return {
-            authUser: JSON.parse(localStorage.getItem('credit')) || {},
+            authUser: credit || {},
             user: {}
         }
     },
     async created() {
-        try {
-            this.user = await request.getCurrentUser();
-        } catch (error) {
-            throw new Error(error.message);
+        if (credit) {
+            try {
+                this.user = await request.getCurrentUser();
+            } catch (error) {
+                throw new Error(error.message);
+            }
         }
     },
     methods: {
         async logOutUser() {
             try {
-                if (Object.keys(this.authUser) !== 0) {
+                if (credit) {
                     localStorage.clear('credit');
-                    router.push('/signin');
+                    this.$router
+                        .go({ path: '/signin' })
+                        .catch(e => console.log(e));
                     this.user = {}
                 }
             } catch (error) {
