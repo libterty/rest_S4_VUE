@@ -11,15 +11,21 @@
                 <b-nav-item
                     v-if="user.isAdmin"
                     :href="'/admin'"
-                    class="text-white mr-3"
+                    class="text-white mr-2"
                 >
                     <p>管理員後台</p>
                 </b-nav-item>
                 <b-nav-item 
-                    :href="'/users/'+user.id" 
-                    class="text-white mr-3"
+                    class="text-white mr-2"
                 >
                     <p>{{user.name | avoidNull}} 您好</p>
+                </b-nav-item>
+                <b-nav-item
+                    v-if="user.id"
+                    :href="'/users/'+user.id" 
+                    class="text-white mr-2"
+                >
+                    <p>Profile</p>
                 </b-nav-item>
                 <b-button
                     v-if="user.id"
@@ -95,6 +101,10 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 425px) {
+    a.navbar-brand {
+        font-size: x-small;
+    }
+
     p {
         margin: 0;
         margin-top: 1rem;

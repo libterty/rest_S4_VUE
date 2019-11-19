@@ -91,6 +91,11 @@ const routes = [
     component: () => import('../views/UsersTop.vue')
   },
   {
+    path: '/users/:id',
+    name: 'UsersProfile',
+    component: () => import('../views/UsersProfile.vue')
+  },
+  {
     path: '*',
     name: 'NotFound',
     component: NotFound
