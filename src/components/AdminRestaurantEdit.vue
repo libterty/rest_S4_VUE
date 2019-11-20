@@ -168,7 +168,7 @@ export default {
             };
             reader.readAsDataURL(file);
         },
-        async onSubmit() {
+        onSubmit() {
             confirm('Confirm to Change ?');
             if (this.form.name !== '' && this.form.categoryId !== '' && this.form.tel !== '' && this.form.address !== '' && this.form.openingHours !== '' && this.form.description !== '' && this.form.image !== null ) {
                 const data = JSON.stringify(this.form);

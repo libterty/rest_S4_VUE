@@ -328,6 +328,19 @@ class Request {
         })
     }
 
+    putUser(uId, data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await putAuthRequest(config.ROOT_URL + `/users/${uId}`, data);
+                resolve (
+                    res.data
+                );
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
     deleteComment(cId) {
         return new Promise(async (resolve, reject) => {
             try {

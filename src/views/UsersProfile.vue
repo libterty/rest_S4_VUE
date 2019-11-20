@@ -1,7 +1,10 @@
 <template>
     <b-container class="py-5">
         <div v-if="initUser">
-            <UsersProfileDashBoard :initUser="initUser" />
+            <UsersProfileDashBoard 
+                :initUser="initUser"
+                @after-submit-data="afterSubmitData"
+            />
         </div>
     </b-container>
 </template>
@@ -23,7 +26,16 @@ export default {
     async created() {
         const uId = document.location.pathname.replace(/\/users\//, '');
         const res = await request.getUser(uId);
-        this.initUser = res.profile
+        this.initUser = res.profile;
+    },
+    methods: {
+        async afterSubmitData(uId, data) {
+            const res = await request.putUser(uId, data);
+            if (res.status === 'success') {
+                const res = await request.getUser(uId);
+                this.initUser = res.profile;
+            }
+        }
     }
 }
 </script>
