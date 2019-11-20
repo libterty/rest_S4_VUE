@@ -2,15 +2,22 @@
 
 - 一個美妙的餐廳網站 (RWD)
 - 使用VUE / VUEX撰寫
-- 部署在[Heroku]](https://pacific-spire-32813.herokuapp.com/)上
+- 部署在[Heroku](https://pacific-spire-32813.herokuapp.com/)上
 
 - 餐廳前台使用者主頁面
+
 ![image](https://github.com/libterty/rest_S4_VUE/blob/master/assets/image/Home.png)
+
 - 餐廳前台使用者主頁面 (RWD)
+
 ![image](https://github.com/libterty/rest_S4_VUE/blob/master/assets/image/Home(RWD).png)
+
 - 餐廳使用者資訊頁面 (RWD)
+
 ![image](https://github.com/libterty/rest_S4_VUE/blob/master/assets/image/UserProfile(RWD).png)
+
 - 餐廳後台頁面 (RWD)
+
 ![image](https://github.com/libterty/rest_S4_VUE/blob/master/assets/image/Admin%20Home.png)
 
 ## Project setup
