@@ -1,3 +1,5 @@
 module.exports = {
-    publicPath: './'
+    baseUrl: process.env.NODE_ENV === 'production'
+    ? '/forum-front-end-vue/'
+    : './'
 }
