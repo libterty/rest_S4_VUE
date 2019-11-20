@@ -6,7 +6,7 @@
     "stat": "node server.js",
     "dev": "nodemon server.js",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "dev-build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
