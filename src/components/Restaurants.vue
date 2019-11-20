@@ -3,17 +3,13 @@
         <b-card-group deck>
             <b-card
                 :title="restaurant.name"
+                :sub-title="name"
                 :img-src="restaurant.image"
                 :img-alt="restaurant.name"
                 img-top
                 class="mb-4"
             >
                 <router-link :to="'/restaurants/'+restaurant.id">Visit {{restaurant.name}}</router-link>
-                <b-badge class="text-center" variant="light">
-                    <span class="sr-only">
-                        {{restaurant.Category.name}}
-                    </span>
-                </b-badge>
                 <b-card-text>{{restaurant.description | shortenDesc}}</b-card-text>
 
                 <b-card-footer class="mt-3">
@@ -77,8 +73,12 @@ export default {
     },
     data() {
         return {
-            restaurant: this.initialRestaurant
+            restaurant: this.initialRestaurant,
+            name: ''
         }
+    },
+    created() {
+        this.name = this.restaurant.Category.name;
     },
     methods: {
         addFavorited(rId) {
@@ -109,5 +109,8 @@ button {
 }
 p.card-text {
     min-height: 48px;
+}
+h4.card-title {
+    white-space: nowrap;
 }
 </style>
