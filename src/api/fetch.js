@@ -46,6 +46,18 @@ export const putAuthRequest = (url, data) => {
         .catch(err => console.log('fetch PUT Auth err', err.message));
 }
 
+export const putAuthRequestWithImg = (url, formData) => {
+    console.log('fetch log formdata', formData)
+    return axios({
+        method: 'PUT',
+        url: url,
+        formData,
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: 'Bearer '+auth.token }
+    })
+        .then(res => { return res })
+        .catch(err => console.log('fetch PUT Auth err', err.message));
+}
+
 export const deleteRequest = url => {
     return axios.delete(url, 
         {  headers:

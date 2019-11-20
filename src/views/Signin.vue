@@ -47,7 +47,6 @@
 </template>
 
 <script>
-// import router from '../router';
 import Request from '../api';
 const request = new Request();
 

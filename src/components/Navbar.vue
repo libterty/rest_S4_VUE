@@ -107,9 +107,11 @@ export default {
 
     p {
         margin: 0;
-        margin-top: 1rem;
         font-size: small;
         white-space: nowrap;
     }
+}
+p {
+    margin-top: 0.5rem;
 }
 </style>
