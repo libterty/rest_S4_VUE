@@ -107,4 +107,7 @@ export default {
 button {
     margin-left: 0.25rem;
 }
+p.card-text {
+    min-height: 48px;
+}
 </style>

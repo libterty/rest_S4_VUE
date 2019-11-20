@@ -6,6 +6,9 @@
                 @after-submit-data="afterSubmitData"
             />
         </div>
+        <br>
+        <br>
+        <a href="javascript:history.back()">回上一頁</a>
     </b-container>
 </template>
 

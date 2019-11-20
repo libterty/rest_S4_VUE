@@ -165,7 +165,8 @@ export default {
 a.btn.btn-primary {
     border-radius: 5px !important;
 }
-button.btn.btn-success.btn-sm {
+button.btn.btn-success.btn-sm,
+button.btn.btn-danger.btn-sm {
     margin-left: 0.5rem;
     border-radius: 5px;
 }
