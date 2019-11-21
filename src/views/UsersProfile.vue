@@ -32,8 +32,8 @@ export default {
         this.initUser = res.profile;
     },
     methods: {
-        async afterSubmitData(uId, data) {
-            const res = await request.putUser(uId, data);
+        async afterSubmitData(uId, data, file) {
+            const res = await request.putUser(uId, data, file);
             console.log('server res', res);
             if (res.status === 'success') {
                 const res = await request.getUser(uId);

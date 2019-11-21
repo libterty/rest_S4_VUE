@@ -96,6 +96,8 @@
 </template>
 
 <script>
+import { base64ToBlob } from '../utils';
+
 export default {
     props: {
         initUser: {
@@ -137,44 +139,26 @@ export default {
         onFileChange(e) {
             let files = e.target.files || e.dataTransfer.files;
             if (!files.length) return;
-            this.form.file = files[0];
-            // this.createImage(files[0]);
+            this.createImage(files[0]);
         },
-        // createImage(file) {
-        //     let reader = new FileReader();
-        //     let vm = this;
+        createImage(file) {
+            let reader = new FileReader();
+            let vm = this;
 
-        //     reader.onload = (e) => {
-        //         vm.form.file = e.target.result;
-        //     };
-        //     reader.readAsDataURL(file);
-        // },
-        // dataURLtoFile(dataurl, filename) {
-        //     const arr = dataurl.split(',');
-        //     const mime = arr[0].match(/:(.*?);/)[1];
-        //     const bstr = atob(arr[1]);
-        //     let n = bstr.length;
-        //     const u8arr = new Uint8Array(n);
-        //     while (n) {
-        //         u8arr[n] = bstr.charCodeAt(n);
-        //         n -= 1;
-        //     }
-        //     return new File([u8arr], filename, { type: mime });
-        // },
+            reader.onload = (e) => {
+                vm.form.file = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
         onSubmit() {
             const uId = document.location.pathname.replace(/\/users\//, '');
             confirm('Confirm to Change ?');
             if (this.form.name !== '' && this.form.file !== '') {
-                // this.form.file = this.dataURLtoFile(this.form.file);
+                const data = JSON.stringify(this.form);
                 console.log('this.form.file', this.form.file);
-                const data = new FormData();
-                data.append('name', this.form.name);
-                data.append('file', this.form.file, this.form.file.name);
-                // debug use
-                for (let a of data) {
-                    console.log(a);
-                }
-                this.$emit('after-submit-data', uId, data);
+                this.form.file = base64ToBlob(this.form.file);
+                console.log('this.form.file', this.form.file)
+                this.$emit('after-submit-data', uId, data, this.form.file);
             } else {
                 alert('Do you forget to input something ?');
             }
