@@ -53,6 +53,7 @@
                                 <b-form-input 
                                     id="name"
                                     v-model="form.name"
+                                    @change="onNameChange"
                                     :state="form.name.length > 0"
                                     type="text"
                                     name="name"
@@ -70,13 +71,13 @@
                                 <b-form-file
                                     id="image"
                                     @change="onFileChange"
-                                    :state="Boolean(form.image)"
                                     :file-name-formatter="formatNames"
                                     :placeholder="this.initUser.image | avoidNull"
                                     accept="image/*"
                                     name="image"
+                                    required
                                 ></b-form-file>
-                                <div class="mt-3">Selected Image: {{ form.image ? form.image.name : '' }}</div>
+                                <div class="mt-3">Selected Image: {{ form.file ? form.file.name : '' }}</div>
                             </b-form-group>
                             <div class="mt-3">
                                 <b-button-group>
@@ -95,6 +96,8 @@
 </template>
 
 <script>
+import { base64ToBlob } from '../utils';
+
 export default {
     props: {
         initUser: {
@@ -120,7 +123,7 @@ export default {
         },
         onReset() {
             this.form.name = '';
-            this.form.image = null;
+            this.file = null;
         },
         formatNames(files) {
             if (files.length === 1) {
@@ -128,6 +131,10 @@ export default {
             } else {
                 return `${files.length} files selected`
             }
+        },
+        onNameChange(e) {
+            if (!e) return;
+            return this.form.name = e;
         },
         onFileChange(e) {
             let files = e.target.files || e.dataTransfer.files;
@@ -139,16 +146,19 @@ export default {
             let vm = this;
 
             reader.onload = (e) => {
-                vm.form.image = e.target.result;
+                vm.form.file = e.target.result;
             };
             reader.readAsDataURL(file);
         },
         onSubmit() {
             const uId = document.location.pathname.replace(/\/users\//, '');
             confirm('Confirm to Change ?');
-            if (this.form.name !== '' && this.form.image !== null) {
+            if (this.form.name !== '' && this.form.file !== '') {
                 const data = JSON.stringify(this.form);
-                this.$emit('after-submit-data', uId, data);
+                console.log('this.form.file', this.form.file);
+                this.form.file = base64ToBlob(this.form.file);
+                console.log('this.form.file', this.form.file)
+                this.$emit('after-submit-data', uId, data, this.form.file);
             } else {
                 alert('Do you forget to input something ?');
             }
@@ -163,7 +173,7 @@ export default {
             isShow: false,
             form: {
                 name: '',
-                image: null
+                file: ''
             }
         }
     },

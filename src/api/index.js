@@ -328,10 +328,10 @@ class Request {
         })
     }
 
-    putUser(uId, data) {
+    putUser(uId, data, file) {
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await putAuthRequest(config.ROOT_URL + `/users/${uId}`, data);
+                const res = await putAuthRequest(config.ROOT_URL + `/users/${uId}`, data, file);
                 resolve (
                     res.data
                 );
