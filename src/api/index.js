@@ -1,4 +1,4 @@
-import { getRequest, postRequest, postAuthRequest, putAuthRequest, deleteRequest } from './fetch';
+import { getRequest, postRequest, postAuthRequest, putAuthRequest, putAuthRequestWithImg, deleteRequest } from './fetch';
 import config from '../../config';
 
 class Request {
@@ -331,7 +331,7 @@ class Request {
     putUser(uId, data) {
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await putAuthRequest(config.ROOT_URL + `/users/${uId}`, data);
+                const res = await putAuthRequestWithImg(config.ROOT_URL + `/users/${uId}`, data);
                 resolve (
                     res.data
                 );

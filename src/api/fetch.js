@@ -47,7 +47,9 @@ export const putAuthRequest = (url, data) => {
 }
 
 export const putAuthRequestWithImg = (url, formData) => {
-    console.log('fetch log formdata', formData)
+    for (let a of formData) {
+        console.log('fetch log', a);
+    }
     return axios({
         method: 'PUT',
         url: url,
